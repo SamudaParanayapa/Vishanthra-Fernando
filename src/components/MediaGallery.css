@@ -1,0 +1,106 @@
+.media-section {
+  background-color: var(--bg-deep);
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.media-card {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #1a1a1a;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.media-card.featured {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+
+.media-thumb {
+  width: 100%;
+  height: 250px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  transition: transform 0.5s ease;
+}
+
+.media-card.featured .media-thumb {
+  height: calc(500px + 1.5rem);
+}
+
+.media-card:hover .media-thumb {
+  transform: scale(1.05);
+}
+
+.play-btn-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid var(--accent-gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 5px; /* Visual center for triangle */
+  transition: all 0.3s ease;
+}
+
+.media-card:hover .play-btn-overlay {
+  background: rgba(212, 175, 55, 0.2);
+  transform: translate(-50%, -50%) scale(1.1);
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+}
+
+.media-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+
+.media-info h4 {
+  color: var(--text-main);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  font-size: 1.1rem;
+}
+
+.media-card.featured .media-info h4 {
+  font-size: 1.5rem;
+  font-family: 'Playfair Display', serif;
+  color: var(--accent-gold);
+}
+
+@media (max-width: 900px) {
+  .media-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .media-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .media-card.featured {
+    grid-column: auto;
+    grid-row: auto;
+  }
+  
+  .media-card.featured .media-thumb {
+    height: 300px;
+  }
+}

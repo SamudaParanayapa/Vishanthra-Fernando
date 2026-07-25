@@ -1,0 +1,121 @@
+.portfolio-section {
+  background-color: var(--bg-deep);
+  position: relative;
+}
+
+/* Add a subtle neon gradient background artifact */
+.portfolio-section::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: -20%;
+  width: 50%;
+  height: 60%;
+  background: radial-gradient(circle, rgba(0, 244, 255, 0.05) 0%, rgba(5,5,5,0) 70%);
+  z-index: 0;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.portfolio-card {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  background: var(--bg-card); /* slightly lighter than bg-deep */
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.portfolio-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.card-image-bg {
+  height: 240px;
+  background-size: cover;
+  background-position: center;
+  background-color: #222; /* Placeholder gray if image missing */
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Gradient overlay to make icon pop */
+.card-image-bg::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, var(--bg-card) 0%, rgba(30,30,30,0) 100%);
+  z-index: 1;
+}
+
+.icon-wrapper {
+  background: rgba(5, 5, 5, 0.7);
+  border: 2px solid var(--accent-gold);
+  border-radius: 50%;
+  padding: 1rem;
+  z-index: 2;
+  color: var(--accent-gold);
+  transition: transform 0.4s ease, background 0.4s ease;
+}
+
+.portfolio-card:hover .icon-wrapper {
+  background: var(--accent-gold);
+  color: var(--bg-deep);
+  transform: scale(1.1);
+}
+
+.card-content {
+  padding: 2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-size: 1.8rem;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.card-desc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  flex: 1;
+}
+
+.card-link {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.card-link:hover {
+  color: var(--accent-neon);
+}
+
+@media (max-width: 900px) {
+  .portfolio-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}
