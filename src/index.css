@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600&display=swap');
 
 :root {
-  --bg-deep: #050505;
-  --bg-dark: #121212;
-  --bg-light: #1A1A1A;
-  --text-main: #F4F4F4;
-  --text-muted: #A1A1AA;
-  --accent-gold: #D4AF37;
-  --accent-neon: #00F4FF; /* Changed to vibrant neon blue to contrast stage lighting */
+  --bg-deep: #fff8df;
+  --bg-dark: #f7edc8;
+  --bg-light: #fffdf2;
+  --bg-card: #fffdf5;
+  --text-main: #2e281d;
+  --text-muted: #756b55;
+  --accent-gold: #b88920;
+  --accent-neon: #7d9a72;
+  --border-soft: rgba(91, 70, 24, 0.16);
 }
 
 html {
@@ -65,9 +67,9 @@ img {
 }
 
 .glass-panel {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.58);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-soft);
   border-radius: 12px;
 }
 
@@ -104,7 +106,7 @@ img {
 }
 
 .btn-primary:hover {
-  background-color: #f1cf5b;
+  background-color: #d3aa3f;
   transform: translateY(-2px);
   box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
 }

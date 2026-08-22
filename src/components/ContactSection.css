@@ -1,6 +1,6 @@
 .contact-section {
   background-color: var(--bg-dark);
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid var(--border-soft);
 }
 
 .contact-grid {
@@ -56,8 +56,8 @@
 .form-group textarea {
   width: 100%;
   padding: 1rem;
-  background: rgba(0, 0, 0, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 253, 242, 0.8);
+  border: 1px solid var(--border-soft);
   border-radius: 4px;
   color: var(--text-main);
   font-family: 'Outfit', sans-serif;

@@ -13,8 +13,8 @@
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  background-color: #1a1a1a;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  background-color: var(--bg-card);
+  box-shadow: 0 4px 20px rgba(91, 70, 24, 0.16);
 }
 
 .media-card.featured {
@@ -46,7 +46,7 @@
   transform: translate(-50%, -50%);
   width: 70px;
   height: 70px;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(46, 40, 29, 0.62);
   border: 2px solid var(--accent-gold);
   border-radius: 50%;
   display: flex;

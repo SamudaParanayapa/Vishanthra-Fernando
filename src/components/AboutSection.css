@@ -70,7 +70,7 @@
   object-fit: cover;
   display: block;
   min-height: 400px;
-  background-color: #222; /* Placeholder color before img loads */
+  background-color: var(--bg-dark);
 }
 
 @media (max-width: 900px) {

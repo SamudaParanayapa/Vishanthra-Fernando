@@ -22,7 +22,7 @@
   border-radius: 8px;
   overflow: hidden;
   cursor: pointer;
-  background-color: #2a2a2a; /* Placeholder bg */
+  background-color: var(--bg-light);
 }
 
 /* The first item takes up full column height */
