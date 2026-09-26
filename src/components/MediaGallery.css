@@ -25,9 +25,15 @@
 .media-thumb {
   width: 100%;
   height: 250px;
-  background-size: cover;
-  background-position: center;
   position: relative;
+  overflow: hidden;
+}
+
+.media-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   transition: transform 0.5s ease;
 }
 
@@ -35,31 +41,8 @@
   height: calc(500px + 1.5rem);
 }
 
-.media-card:hover .media-thumb {
+.media-card:hover .media-image {
   transform: scale(1.05);
-}
-
-.play-btn-overlay {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 70px;
-  height: 70px;
-  background: rgba(46, 40, 29, 0.62);
-  border: 2px solid var(--accent-gold);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-left: 5px; /* Visual center for triangle */
-  transition: all 0.3s ease;
-}
-
-.media-card:hover .play-btn-overlay {
-  background: rgba(212, 175, 55, 0.2);
-  transform: translate(-50%, -50%) scale(1.1);
-  box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
 }
 
 .media-info {
