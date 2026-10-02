@@ -1,32 +1,91 @@
 import React from 'react';
+import { Quote } from 'lucide-react';
+import SplitText from './SplitText';
+import { useParallax } from '../hooks/useMotion';
+import { aboutPhoto } from '../lib/media';
 import './AboutSection.css';
 
+const milestones = [
+  { year: 'Roots', text: 'Raised in the wings of Sri Lankan theatre' },
+  { year: 'Craft', text: 'Voice, movement and instrument in one performer' },
+  { year: 'Today', text: 'Front line of a premier band in Israel' },
+];
+
 const AboutSection = () => {
+  const imgRef = useParallax(34);
+
   return (
-    <section id="about" className="section about-section">
-      <div className="container flex-container">
-        <div className="about-content animate-on-scroll">
-          <h2 className="section-title" style={{ textAlign: 'left' }}>A Legacy in Motion</h2>
-          
-          <p className="about-text">
-            Born into the heartbeat of Sri Lankan artistry, Vishanthra Fernando is more than a performer; he is the evolution of a creative dynasty. As the son of B. Fernando—a revered figure in Sri Lankan music and the visionary behind iconic Vesak Natya stage dramas—and a mother who mastered the grace of dance, Vishanthra was raised in the wings of theaters and the echoes of rehearsal halls.
-          </p>
+    <section id="about" className="section about grain">
+      <div className="aura about-aura" />
 
-          <div className="gold-divider"></div>
+      <div className="container about-grid">
+        {/* ------------- visual ------------- */}
+        <div className="about-visual" data-reveal="left">
+          <figure className="about-frame">
+            <img
+              ref={imgRef}
+              src={aboutPhoto?.src}
+              alt="Vishanthra Fernando on stage"
+              loading="lazy"
+            />
+          </figure>
+          <span className="frame-accent" aria-hidden="true" />
 
-          <p className="about-text">
-            Today, Vishanthra has taken that foundational excellence to the global stage. Currently a standout performer in a premier band in Israel, he seamlessly blends the disciplined tradition of his roots with the contemporary energy of the international music scene.
-          </p>
-          
-          <p className="about-text highlight">
-            Whether he is commanding the microphone with soulful vocals or captivating an audience through intricate choreography, Vishanthra embodies the "Triple Threat." His work is a tribute to his father’s scripts and his mother’s movement, reimagined for a modern, global audience.
-          </p>
+          <div className="about-badge">
+            <Quote size={18} strokeWidth={2} />
+            <p>
+              The stage was never a destination.
+              <br />
+              It was the room I grew up in.
+            </p>
+          </div>
         </div>
 
-        <div className="about-image-wrapper animate-on-scroll">
-          <div className="about-image-frame glass-panel">
-            <img src="https://picsum.photos/seed/portrait/800/1000" alt="Vishanthra Fernando Portrait" className="about-image" />
+        {/* ------------- copy ------------- */}
+        <div className="about-copy">
+          <p className="eyebrow" data-reveal="up">The Story</p>
+
+          <h2 className="section-title about-title">
+            <SplitText text="A legacy" step={70} />
+            <SplitText text="in motion" step={70} delay={100} className="about-title-em" />
+          </h2>
+
+          <div className="about-body">
+            <p data-reveal="up" style={{ '--reveal-delay': '160ms' }}>
+              Born into the heartbeat of Sri Lankan artistry, Vishanthra Fernando is more
+              than a performer &mdash; he is the continuation of a creative dynasty. As the
+              son of <strong>B. Fernando</strong>, a revered figure in Sri Lankan music and
+              the visionary behind the iconic <em>Vesak Natya</em> stage dramas, and of a
+              mother who mastered the grace of dance, he was raised in the wings of theatres
+              and the echoes of rehearsal halls.
+            </p>
+
+            <p data-reveal="up" style={{ '--reveal-delay': '280ms' }}>
+              Today he has taken that foundation to the global stage. A standout performer
+              in a premier band in Israel, he blends the discipline of his roots with the
+              contemporary energy of the international music scene.
+            </p>
+
+            <blockquote data-reveal="up" style={{ '--reveal-delay': '380ms' }}>
+              Whether commanding the microphone with soulful vocals or captivating an
+              audience through intricate choreography, Vishanthra embodies the
+              <strong> triple threat</strong> &mdash; his father&rsquo;s scripts and his
+              mother&rsquo;s movement, reimagined for a modern, global audience.
+            </blockquote>
           </div>
+
+          <ul className="milestones">
+            {milestones.map((m, i) => (
+              <li
+                key={m.year}
+                data-reveal="up"
+                style={{ '--reveal-delay': `${480 + i * 110}ms` }}
+              >
+                <span className="ms-year">{m.year}</span>
+                <span className="ms-text">{m.text}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

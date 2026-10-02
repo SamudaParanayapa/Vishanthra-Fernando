@@ -1,121 +1,213 @@
-.portfolio-section {
-  background-color: var(--bg-deep);
+.portfolio {
+  background: linear-gradient(180deg, var(--ivory) 0%, var(--sand) 55%, var(--ivory) 100%);
+  overflow: hidden;
+}
+
+.portfolio-aura {
+  width: 44vw; height: 44vw;
+  max-width: 560px; max-height: 560px;
+  top: 18%; left: -14%;
+  background: radial-gradient(circle, rgba(212,134,122,.26), transparent 70%);
+  animation: drift 30s ease-in-out infinite reverse;
+}
+
+.portfolio-head {
   position: relative;
+  z-index: 2;
+  margin-bottom: clamp(2.75rem, 6vw, 4.5rem);
 }
 
-/* Add a subtle neon gradient background artifact */
-.portfolio-section::before {
-  content: '';
-  position: absolute;
-  top: 20%;
-  left: -20%;
-  width: 50%;
-  height: 60%;
-  background: radial-gradient(circle, rgba(184, 137, 32, 0.1) 0%, rgba(255, 248, 223, 0) 70%);
-  z-index: 0;
-}
-
-.portfolio-grid {
+/* ---------------- grid ---------------- */
+.facet-grid {
+  position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  position: relative;
-  z-index: 1;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
 }
 
-.portfolio-card {
-  overflow: hidden;
+.facet { perspective: 1200px; }
+
+.facet-inner {
+  --media-h: 210px;
+  position: relative;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-  background: var(--bg-card); /* slightly lighter than bg-deep */
-  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform .45s var(--ease-out), box-shadow .55s var(--ease-out),
+              border-color .55s var(--ease-out);
+  will-change: transform;
+}
+.facet-inner:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent, var(--gold));
 }
 
-.portfolio-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(91, 70, 24, 0.18), 0 0 20px rgba(184, 137, 32, 0.16);
-}
+/* per-card accent */
+.tone-gold  .facet-inner { --accent: var(--gold);  --accent-wash: rgba(190,138,44,.12); }
+.tone-rose  .facet-inner { --accent: var(--rose);  --accent-wash: rgba(212,134,122,.14); }
+.tone-sage  .facet-inner { --accent: var(--sage);  --accent-wash: rgba(126,155,124,.14); }
 
-.card-image-bg {
-  height: 240px;
-  background-size: cover;
-  background-position: center;
-  background-color: var(--bg-dark);
+/* ---------------- media ---------------- */
+.facet-media {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: var(--media-h);
+  flex: none;
+  overflow: hidden;
+  background: var(--sand-deep);
 }
-
-/* Gradient overlay to make icon pop */
-.card-image-bg::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
+.facet-media img {
   width: 100%;
   height: 100%;
-  background: linear-gradient(0deg, var(--bg-card) 0%, rgba(255, 253, 242, 0) 100%);
-  z-index: 1;
+  object-fit: cover;
+  filter: grayscale(.72) contrast(1.05) brightness(1.04);
+  transform: scale(1.04);
+  transition: transform 1.1s var(--ease-out), filter .8s var(--ease-out);
+}
+.facet-inner:hover .facet-media img {
+  filter: grayscale(0) contrast(1.05);
+  transform: scale(1.11);
+}
+.facet-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 35%, rgba(255,255,255,.92) 100%),
+              var(--accent-wash);
+  transition: opacity .6s var(--ease-out);
 }
 
-.icon-wrapper {
-  background: rgba(5, 5, 5, 0.7);
-  border: 2px solid var(--accent-gold);
-  border-radius: 50%;
-  padding: 1rem;
+.facet-num {
+  position: absolute;
+  top: 1rem;
+  left: 1.25rem;
   z-index: 2;
-  color: var(--accent-gold);
-  transition: transform 0.4s ease, background 0.4s ease;
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  color: #fff;
+  text-shadow: 0 1px 8px rgba(0,0,0,.45);
 }
 
-.portfolio-card:hover .icon-wrapper {
-  background: var(--accent-gold);
-  color: var(--bg-deep);
-  transform: scale(1.1);
+/* Straddles the seam between media and body, anchored to the card itself
+   so nothing clips it. */
+.facet-icon {
+  position: absolute;
+  right: 1.25rem;
+  top: calc(var(--media-h) - 26px);
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  color: var(--accent);
+  box-shadow: var(--shadow-md);
+  transition: transform .5s var(--ease-spring), background-color .45s var(--ease-out),
+              color .45s var(--ease-out);
+}
+.facet-inner:hover .facet-icon {
+  transform: translateY(-6px) rotate(-8deg);
+  background: var(--accent);
+  color: #fff;
 }
 
-.card-content {
-  padding: 2rem;
+/* ---------------- body ---------------- */
+.facet-body {
   flex: 1;
   display: flex;
   flex-direction: column;
+  padding: 2.1rem 1.6rem 1.75rem;
 }
 
-.card-title {
-  font-size: 1.8rem;
-  color: var(--text-main);
-  margin-bottom: 1rem;
+.facet-title {
+  font-size: 1.65rem;
+  margin-bottom: .7rem;
 }
 
-.card-desc {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  margin-bottom: 2rem;
+.facet-desc {
+  font-size: .94rem;
+  line-height: 1.7;
+  color: var(--muted);
+  margin-bottom: 1.3rem;
   flex: 1;
 }
 
-.card-link {
-  font-weight: 600;
+.facet-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-bottom: 1.5rem;
+}
+.facet-tags li {
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .07em;
   text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 1px;
-  transition: color 0.3s ease;
+  padding: .32rem .7rem;
+  border-radius: 999px;
+  color: var(--ink-2);
+  background: var(--sand);
+  border: 1px solid transparent;
+  transition: background-color .35s var(--ease-out), border-color .35s var(--ease-out),
+              transform .35s var(--ease-out);
 }
-
-.card-link:hover {
-  color: var(--accent-neon);
+.facet-inner:hover .facet-tags li {
+  background: var(--accent-wash);
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
 }
+.facet-tags li:hover { transform: translateY(-2px); }
 
+.facet-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .76rem;
+  font-weight: 600;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--accent);
+  align-self: flex-start;
+  padding-bottom: 3px;
+  border-bottom: 1.5px solid transparent;
+  transition: border-color .4s var(--ease-out), gap .4s var(--ease-out);
+}
+.facet-link:hover { border-color: currentColor; gap: .65rem; }
+.facet-link svg { transition: transform .4s var(--ease-out); }
+.facet-link:hover svg { transform: translate(2px, -2px); }
+
+/* pointer-follow glare */
+.facet-glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    240px circle at var(--gx, 50%) var(--gy, 50%),
+    rgba(255,255,255,.55),
+    transparent 62%
+  );
+  transition: opacity .45s var(--ease-out);
+}
+.facet-inner:hover .facet-glare { opacity: 1; }
+
+/* ---------------- responsive ---------------- */
 @media (max-width: 900px) {
-  .portfolio-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .facet-grid { grid-template-columns: repeat(2, 1fr); }
+  .facet:last-child { grid-column: 1 / -1; max-width: 480px; margin-inline: auto; width: 100%; }
 }
 
 @media (max-width: 600px) {
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-  }
+  .facet-grid { grid-template-columns: 1fr; }
+  .facet:last-child { max-width: none; }
+  .facet-inner { --media-h: 180px; }
 }

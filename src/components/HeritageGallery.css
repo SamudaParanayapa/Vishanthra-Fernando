@@ -1,87 +1,210 @@
-.heritage-section {
-  background-color: var(--bg-dark);
+.heritage {
+  background: var(--sand);
+  overflow: hidden;
 }
 
-.heritage-subtitle {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto 4rem;
-  color: var(--text-muted);
-  font-size: 1.1rem;
-}
+.heritage-head { margin-bottom: clamp(2.5rem, 6vw, 4rem); }
 
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 300px);
-  gap: 1.5rem;
-}
-
-.gallery-item {
+/* ---------------- timeline ---------------- */
+.chapters {
   position: relative;
-  border-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  margin-bottom: clamp(3rem, 7vw, 5rem);
+}
+
+/* connecting line */
+.chapters::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--line-strong) 0 6px,
+    transparent 6px 13px
+  );
+}
+
+.chapter {
+  position: relative;
+  padding-top: 0;
+  text-align: center;
+}
+
+.chapter-node {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 1.25rem;
+  border-radius: 50%;
+  background: var(--ivory);
+  border: 1px solid var(--line-strong);
+  color: var(--gold);
+  box-shadow: var(--shadow-sm);
+  transition: transform .5s var(--ease-spring), background-color .45s var(--ease-out),
+              color .45s var(--ease-out), box-shadow .45s var(--ease-out);
+}
+.chapter:hover .chapter-node {
+  transform: translateY(-6px) scale(1.06);
+  background: linear-gradient(135deg, var(--gold-bright), var(--gold));
+  color: #fff;
+  box-shadow: var(--shadow-gold);
+}
+
+.chapter-role {
+  display: block;
+  font-size: .64rem;
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .45rem;
+}
+
+.chapter-title {
+  font-size: 1.32rem;
+  margin-bottom: .6rem;
+}
+
+.chapter-body p {
+  font-size: .92rem;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 34ch;
+  margin-inline: auto;
+}
+
+/* ---------------- archive ---------------- */
+.archive { position: relative; }
+
+.archive-label {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  margin-bottom: 1.4rem;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--muted-2);
+}
+.archive-label span {
+  flex: 1;
+  height: 1px;
+  order: 1;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--line-strong) 0 6px,
+    transparent 6px 13px
+  );
+}
+
+/* auto-fit means any number of plates fills the row with no empty cells,
+   so adding a third archive photo needs no layout change. */
+.plate-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: clamp(.9rem, 2vw, 1.4rem);
+}
+
+.plate {
+  position: relative;
+  display: block;
+  height: clamp(280px, 34vw, 430px);
+  padding: 0;
+  border: none;
+  border-radius: var(--radius);
   overflow: hidden;
   cursor: pointer;
-  background-color: var(--bg-light);
+  background: var(--sand-deep);
+  box-shadow: var(--shadow-sm);
+  transition: transform .55s var(--ease-out), box-shadow .55s var(--ease-out);
 }
+.plate:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+.plate:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
 
-/* The first item takes up full column height */
-.gallery-item.large {
-  grid-row: span 2;
-}
-
-.gallery-img {
+.plate img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.6s ease;
-  display: block;
+  /* Warm wash suits scanned film prints; full colour on hover. */
+  filter: sepia(.16) saturate(.88) contrast(1.02);
+  transition: transform 1.2s var(--ease-out), filter .7s var(--ease-out);
 }
+.plate:hover img { transform: scale(1.06); filter: none; }
 
-.gallery-item:hover .gallery-img {
-  transform: scale(1.05);
-}
-
-.gallery-caption {
+.plate-veil {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 2rem 1.5rem 1.5rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-  transform: translateY(20px);
+  inset: 0;
+  background: linear-gradient(to top, rgba(18,14,10,.82) 0%, rgba(18,14,10,.15) 45%, transparent 70%);
+  opacity: .82;
+  transition: opacity .5s var(--ease-out);
+}
+.plate:hover .plate-veil { opacity: 1; }
+
+.plate-expand {
+  position: absolute;
+  top: .9rem;
+  right: .9rem;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255,255,255,.9);
+  color: var(--ink);
   opacity: 0;
-  transition: all 0.4s ease;
+  transform: scale(.7) rotate(-20deg);
+  transition: opacity .4s var(--ease-out), transform .5s var(--ease-spring);
 }
+.plate:hover .plate-expand { opacity: 1; transform: none; }
 
-.gallery-caption h4 {
-  color: var(--accent-gold);
-  font-size: 1.4rem;
-  margin-bottom: 0.3rem;
+.plate-caption {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 1.4rem 1.3rem;
+  text-align: left;
+  transform: translateY(10px);
+  transition: transform .5s var(--ease-out);
 }
+.plate:hover .plate-caption { transform: none; }
 
-.gallery-caption p {
+.plate-caption strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
   color: #fff;
-  font-size: 0.9rem;
+  margin-bottom: .15rem;
+}
+.plate-caption em {
+  display: block;
+  font-style: normal;
+  font-size: .74rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold-soft);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .45s var(--ease-out) .06s, transform .45s var(--ease-out) .06s;
+}
+.plate:hover .plate-caption em { opacity: 1; transform: none; }
+
+/* ---------------- responsive ---------------- */
+@media (max-width: 860px) {
+  .chapters { grid-template-columns: 1fr; gap: 2rem; }
+  .chapters::before { display: none; }
+  .chapter { display: flex; gap: 1.1rem; text-align: left; }
+  .chapter-node { margin: 0; flex: none; }
+  .chapter-body p { margin-inline: 0; max-width: none; }
 }
 
-.gallery-item:hover .gallery-caption {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-@media (max-width: 768px) {
-  .gallery-grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
-  
-  .gallery-item.large {
-    height: 400px;
-    grid-row: auto;
-  }
-  
-  .gallery-item {
-    height: 300px;
-  }
-}
